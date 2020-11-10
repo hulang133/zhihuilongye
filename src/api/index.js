@@ -16,7 +16,9 @@ export function data(id) {
 }
 
 export function history(id, begin, end) {
-  return axios.get(`/history/${id}?begin=${begin}&end=${end}`);
+  return axios
+    .get(`/history/${id}?begin=${begin}&end=${end}`)
+    .then((p) => p.data);
 }
 
 export function switches(data) {
