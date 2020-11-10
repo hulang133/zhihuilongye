@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import './index.scss';
+import App from './tab.jsx';
 import reportWebVitals from './reportWebVitals';
+import 'antd-mobile/dist/antd-mobile.css';
 
 ReactDOM.render(
   <React.StrictMode>
