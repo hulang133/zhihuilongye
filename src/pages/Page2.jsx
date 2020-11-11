@@ -1,9 +1,9 @@
 import React from "react";
 import * as api from "../api/index";
 import {
-  NavBar,
-  Popover,
-  Icon,
+  // NavBar,
+  // Popover,
+  // Icon,
   Picker,
   List,
   Calendar,
@@ -13,11 +13,11 @@ import {
   LineChart,
   XAxis,
   YAxis,
-  CartesianGrid,
+  // CartesianGrid,
   Line,
   Legend,
   Tooltip,
-  ZAxis,
+  // ZAxis,
 } from "recharts";
 import ReactExport from "react-export-excel";
 

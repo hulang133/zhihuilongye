@@ -1,4 +1,4 @@
-import { List, NavBar, Picker } from "antd-mobile";
+import { List, Picker } from "antd-mobile";
 import React from "react";
 
 export default class Page3 extends React.Component {
