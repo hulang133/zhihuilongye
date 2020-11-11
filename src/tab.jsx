@@ -2,6 +2,7 @@ import React from "react";
 import { TabBar } from "antd-mobile";
 import Page1 from "./pages/Page1";
 import Page2 from "./pages/Page2";
+import Page3 from "./pages/Page3";
 
 export default class TabBarExample extends React.Component {
   constructor(props) {
@@ -116,7 +117,7 @@ export default class TabBarExample extends React.Component {
               });
             }}
           >
-            page3
+            <Page3 />
           </TabBar.Item>
         </TabBar>
       </div>

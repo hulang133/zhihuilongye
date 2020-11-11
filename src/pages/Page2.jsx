@@ -36,21 +36,26 @@ export default class Page2 extends React.Component {
     dpShow: false,
     data: [],
   };
-  pickerChane = (value) => {
-    console.log(value);
+  pickerChane = async (value) => {
+    await this.setState({ client_id: value[0] });
+    this.load();
   };
   btnClick = () => {
     this.setState({ dpShow: true });
   };
-  dpConfirm = (start, end) => {
+  dpConfirm = async (start, end) => {
     // console.log(start);
     // console.log(end);
     start = dt2str(start);
     end = dt2str(end);
-    this.setState({ dpShow: false, start, end });
+    await this.setState({ dpShow: false, start, end });
+    this.load();
   };
 
   async componentDidMount() {
+    this.load();
+  }
+  async load() {
     const data = await api.history(
       this.state.client_id,
       this.state.start,
@@ -78,7 +83,9 @@ export default class Page2 extends React.Component {
                 cols={1}
                 onChange={this.pickerChane}
               >
-                <List.Item arrow="horizontal">device0</List.Item>
+                <List.Item arrow="horizontal">
+                  device{this.state.client_id}
+                </List.Item>
               </Picker>
             </List.Item>
             <List.Item>
@@ -97,7 +104,7 @@ export default class Page2 extends React.Component {
                 <YAxis yAxisId="right" orientation="right" />
                 <Legend />
                 <Tooltip />
-                <Line dataKey="air_humi" yAxisId="right" />
+                <Line dataKey="air_humi" yAxisId="right" name="空气温度" />
                 <Line dataKey="air_temp" yAxisId="left" />
               </LineChart>
             </List.Item>
