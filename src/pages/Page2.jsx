@@ -9,7 +9,21 @@ import {
   Calendar,
   Button,
 } from "antd-mobile";
-import { LineChart, XAxis, YAxis, CartesianGrid, Line } from "recharts";
+import {
+  LineChart,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Line,
+  Legend,
+  Tooltip,
+  ZAxis,
+} from "recharts";
+import ReactExport from "react-export-excel";
+
+const ExcelFile = ReactExport.ExcelFile;
+const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
+const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 function dt2str(dt) {
   return "" + dt.getFullYear() + (dt.getMonth() + 1) + dt.getDate();
@@ -17,16 +31,10 @@ function dt2str(dt) {
 export default class Page2 extends React.Component {
   state = {
     client_id: 0,
-    begin: dt2str(new Date()),
+    start: "20200101",
     end: dt2str(new Date()),
     dpShow: false,
-    data: [
-      { uv: 100, pv: 20 },
-      { uv: 33, pv: 20 },
-      { uv: 100, pv: 20 },
-      { uv: 100, pv: 20 },
-      { uv: 100, pv: 20 },
-    ],
+    data: [],
   };
   pickerChane = (value) => {
     console.log(value);
@@ -34,21 +42,21 @@ export default class Page2 extends React.Component {
   btnClick = () => {
     this.setState({ dpShow: true });
   };
-  dpConfirm = (begin, end) => {
-    // console.log(begin);
+  dpConfirm = (start, end) => {
+    // console.log(start);
     // console.log(end);
-    begin = dt2str(begin);
+    start = dt2str(start);
     end = dt2str(end);
-    this.setState({ dpShow: false, begin, end });
+    this.setState({ dpShow: false, start, end });
   };
 
   async componentDidMount() {
     const data = await api.history(
       this.state.client_id,
-      this.state.begin,
+      this.state.start,
       this.state.end
     );
-    console.log(data);
+    this.setState({ data });
   }
   render() {
     return (
@@ -60,27 +68,75 @@ export default class Page2 extends React.Component {
         }}
       >
         <div>
-          <Picker
-            data={[
-              { label: "device0", value: 0 },
-              { label: "device1", value: 1 },
-            ]}
-            cols={1}
-            onChange={this.pickerChane}
-          >
-            <List.Item arrow="horizontal">device0</List.Item>
-          </Picker>
-          <Button onClick={this.btnClick}>
-            {this.state.begin}-{this.state.end}
-          </Button>
-          <Calendar visible={this.state.dpShow} onConfirm={this.dpConfirm} />
-          <LineChart width={500} height={300} data={this.state.data}>
-            <XAxis dataKey="name" />
-            <YAxis />
-            <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-            <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-            <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
-          </LineChart>
+          <List renderHeader={"历史数据"}>
+            <List.Item>
+              <Picker
+                data={[
+                  { label: "device0", value: 0 },
+                  { label: "device1", value: 1 },
+                ]}
+                cols={1}
+                onChange={this.pickerChane}
+              >
+                <List.Item arrow="horizontal">device0</List.Item>
+              </Picker>
+            </List.Item>
+            <List.Item>
+              <Button onClick={this.btnClick}>
+                {this.state.start}-{this.state.end}
+              </Button>
+              <Calendar
+                visible={this.state.dpShow}
+                onConfirm={this.dpConfirm}
+              />
+            </List.Item>
+            <List.Item>
+              <LineChart width={300} height={300} data={this.state.data}>
+                <XAxis dataKey="created_at" orientation="bottom" />
+                <YAxis yAxisId="left" />
+                <YAxis yAxisId="right" orientation="right" />
+                <Legend />
+                <Tooltip />
+                <Line dataKey="air_humi" yAxisId="right" />
+                <Line dataKey="air_temp" yAxisId="left" />
+              </LineChart>
+            </List.Item>
+            <List.Item>
+              <LineChart width={300} height={300} data={this.state.data}>
+                <XAxis dataKey="created_at" orientation="bottom" />
+                <YAxis yAxisId="left" />
+                <YAxis yAxisId="right" orientation="right" />
+                <Legend />
+                <Tooltip />
+                <Line dataKey="soil_temp" yAxisId="right" />
+                <Line dataKey="soil_humi" yAxisId="left" />
+              </LineChart>
+            </List.Item>
+            <List.Item>
+              <LineChart width={300} height={300} data={this.state.data}>
+                <XAxis dataKey="created_at" />
+                <YAxis />
+                <Legend />
+                <Tooltip />
+                <Line dataKey="lumen" />
+              </LineChart>
+            </List.Item>
+            <List.Item>
+              <ExcelFile
+                element={<Button type="primary">export</Button>}
+                filename="history"
+              >
+                <ExcelSheet data={this.state.data} name="history">
+                  <ExcelColumn label="created_at" value="created_at" />
+                  <ExcelColumn label="lumen" value="lumen" />
+                  <ExcelColumn label="air_humi" value="air_humi" />
+                  <ExcelColumn label="air_temp" value="air_temp" />
+                  <ExcelColumn label="soil_humi" value="soil_humi" />
+                  <ExcelColumn label="soil_temp" value="soil_temp" />
+                </ExcelSheet>
+              </ExcelFile>
+            </List.Item>
+          </List>
         </div>
       </div>
     );

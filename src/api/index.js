@@ -17,7 +17,7 @@ export function data(id) {
 
 export function history(id, begin, end) {
   return axios
-    .get(`/history/${id}?begin=${begin}&end=${end}`)
+    .get(`/history/${id}?start=${begin}&end=${end}`)
     .then((p) => p.data);
 }
 
