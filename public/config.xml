@@ -13,5 +13,5 @@
     <preference name="autoUpdate" value="true"/>
     <preference name="smartUpdate" value="false"/>
     <preference name="debug" value="true"/>
-    <preference name="statusBarAppearance" value="true"/>
+    <preference name="statusBarAppearance" value="false"/>
 </widget>
