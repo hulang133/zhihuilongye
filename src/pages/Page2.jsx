@@ -63,9 +63,9 @@ export default class Page2 extends React.Component {
     );
     this.setState({ data });
   }
-  doexport() {
+  doexport = () => {
     api.doexport(this.state.client_id, this.state.start, this.state.end);
-  }
+  };
   render() {
     return (
       <div

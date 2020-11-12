@@ -23,7 +23,7 @@ export function history(id, begin, end) {
 }
 
 export function doexport(id, begin, end) {
-  window.location.href = `${apiBase}/history/${id}?start=${begin}&end=${end}`;
+  window.location.href = `${apiBase}/export/${id}?start=${begin}&end=${end}`;
 }
 
 export function switches(data) {
