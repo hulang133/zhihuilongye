@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 const axios = Axios.create({
-  baseURL: "http://139.196.141.151:83/",
+  baseURL: "http://139.196.141.151:2021/",
   // baseURL:"http://139.196.141.151:83/",
 });
 
@@ -23,4 +23,8 @@ export function history(id, begin, end) {
 
 export function switches(data) {
   return axios.post("/switches", data);
+}
+
+export function videoList() {
+  return axios.get("/video/list").then((p) => p.data.data);
 }
