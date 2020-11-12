@@ -63,6 +63,9 @@ export default class Page2 extends React.Component {
     );
     this.setState({ data });
   }
+  doexport() {
+    api.doexport(this.state.client_id, this.state.start, this.state.end);
+  }
   render() {
     return (
       <div
@@ -129,19 +132,9 @@ export default class Page2 extends React.Component {
               </LineChart>
             </List.Item>
             <List.Item>
-              <ExcelFile
-                element={<Button type="primary">export</Button>}
-                filename="history"
-              >
-                <ExcelSheet data={this.state.data} name="history">
-                  <ExcelColumn label="created_at" value="created_at" />
-                  <ExcelColumn label="lumen" value="lumen" />
-                  <ExcelColumn label="air_humi" value="air_humi" />
-                  <ExcelColumn label="air_temp" value="air_temp" />
-                  <ExcelColumn label="soil_humi" value="soil_humi" />
-                  <ExcelColumn label="soil_temp" value="soil_temp" />
-                </ExcelSheet>
-              </ExcelFile>
+              <Button type="primary" onClick={this.doexport}>
+                export
+              </Button>{" "}
             </List.Item>
           </List>
         </div>

@@ -1,7 +1,8 @@
 import Axios from "axios";
 
+const apiBase = "http://139.196.141.151:2021";
 const axios = Axios.create({
-  baseURL: "http://139.196.141.151:2021/",
+  baseURL: apiBase,
   // baseURL:"http://139.196.141.151:83/",
 });
 
@@ -19,6 +20,10 @@ export function history(id, begin, end) {
   return axios
     .get(`/history/${id}?start=${begin}&end=${end}`)
     .then((p) => p.data);
+}
+
+export function doexport(id, begin, end) {
+  window.location.href = `${apiBase}/history/${id}?start=${begin}&end=${end}`;
 }
 
 export function switches(data) {
