@@ -77,7 +77,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "scp": "scp -r build/* root@139.196.141.151:/root/proj/apicloud/widget/"
+    "scp": "scp -r build/* root@139.196.141.151:/root/proj/apicloud/widget/",
+    "zip": "cp -r build/* apicloud/widget/; cd apicloud; rm -f code.zip; zip -r code.zip widget"
   },
   "eslintConfig": {
     "extends": ["react-app", "react-app/jest"]
