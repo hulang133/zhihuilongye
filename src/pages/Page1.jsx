@@ -103,11 +103,11 @@ export default class Page1 extends React.Component {
         >
           {this.state.data_obj ? (
             <>
-              <Item>air_temp {this.state.data_obj.air_temp}</Item>
-              <Item>air_humi {this.state.data_obj.air_humi}</Item>
-              <Item>lumen {this.state.data_obj.lumen}</Item>
-              <Item>soil_temp {this.state.data_obj.soil_temp}</Item>
-              <Item>soil_humi {this.state.data_obj.soil_humi}</Item>
+              <Item>空气温度 {this.state.data_obj.air_temp}C</Item>
+              <Item>空气湿度 {this.state.data_obj.air_humi}%</Item>
+              <Item>光照 {this.state.data_obj.lumen}</Item>
+              <Item>土壤温度 {this.state.data_obj.soil_temp}C</Item>
+              <Item>土壤湿度 {this.state.data_obj.soil_humi}%</Item>
               <Item
                 extra={
                   <Switch

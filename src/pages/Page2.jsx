@@ -107,8 +107,8 @@ export default class Page2 extends React.Component {
                 <YAxis yAxisId="right" orientation="right" />
                 <Legend />
                 <Tooltip />
-                <Line dataKey="air_humi" yAxisId="right" name="空气温度" />
-                <Line dataKey="air_temp" yAxisId="left" />
+                <Line dataKey="air_humi" yAxisId="right" name="空气湿度" />
+                <Line dataKey="air_temp" yAxisId="left" name="空气温度" />
               </LineChart>
             </List.Item>
             <List.Item>
@@ -118,8 +118,8 @@ export default class Page2 extends React.Component {
                 <YAxis yAxisId="right" orientation="right" />
                 <Legend />
                 <Tooltip />
-                <Line dataKey="soil_temp" yAxisId="right" />
-                <Line dataKey="soil_humi" yAxisId="left" />
+                <Line dataKey="soil_temp" yAxisId="right" name="土壤温度" />
+                <Line dataKey="soil_humi" yAxisId="left" name="土壤湿度" />
               </LineChart>
             </List.Item>
             <List.Item>
@@ -128,13 +128,13 @@ export default class Page2 extends React.Component {
                 <YAxis />
                 <Legend />
                 <Tooltip />
-                <Line dataKey="lumen" />
+                <Line dataKey="lumen" name="光照" />
               </LineChart>
             </List.Item>
             <List.Item>
               <Button type="primary" onClick={this.doexport}>
-                export
-              </Button>{" "}
+                数据导出
+              </Button>
             </List.Item>
           </List>
         </div>

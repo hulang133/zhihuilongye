@@ -38,13 +38,14 @@ export default class Page3 extends React.Component {
               <List.Item>video {this.state.client_id}</List.Item>
             </Picker>
           </List.Item>
-          {this.state.data.map((it) => (
-            <List.Item key={it.channelNo}>
-              <video controls width="100%">
-                <source type="application/x-mpegURL" src={it.hdAddress} />
-              </video>
-            </List.Item>
-          ))}
+          {this.state.data &&
+            this.state.data.map((it) => (
+              <List.Item key={it.channelNo}>
+                <video controls width="100%">
+                  <source type="application/x-mpegURL" src={it.hdAddress} />
+                </video>
+              </List.Item>
+            ))}
         </List>
       </div>
     );

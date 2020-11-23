@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
+.am-list-item .am-list-line .am-list-content {
+  overflow: visible;
+}
