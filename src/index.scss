@@ -30,5 +30,49 @@ body {
 
 .page1 {
   background:url("images/v-pic.png");
-  background-size: 100% ;
+  background-size: 100% 100%;
+  //margin-bottom: 10%;
+
+}
+
+.lumen{
+  font-size: 20px;
+	position:absolute;
+  left:15%;  
+  top:30%;
+  
+}
+
+.air_temp {
+  font-size: 20px;
+	position:absolute;
+  left:60%;  
+  top:10%;  
+}
+
+.air_humi {
+  font-size: 20px;
+	position:absolute;
+  left:65%;  
+  top:40%;
+  
+} 
+
+.soil_temp {
+  font-size: 20px;
+	position:absolute;
+  left:10%;  
+  top:93%;  
+}
+.soil_humi {
+  font-size: 20px;
+	position:absolute;
+  left:70%;  
+  top:93%;  
+}
+
+.pos{
+
+  position:relative;
+	left:20px;
 }

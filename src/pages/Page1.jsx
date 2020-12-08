@@ -62,10 +62,16 @@ export default class Page1 extends React.Component {
         style={{
           width: "100%",
           height: "100%",
+          //backgroundColor: "##ffffff52", //  改了backg没得反应
         }}
         className="page1"
       >
         <NavBar
+          style={{
+            //width: "100%",
+            //height: "100%",
+            backgroundColor: "#ffffff52", //  改了backg没得反应
+          }}
           mode="light"
           rightContent={
             <Popover
@@ -91,23 +97,26 @@ export default class Page1 extends React.Component {
             </Popover>
           }
         >
-          device{this.state.client_id}
+          设备{this.state.client_id}
         </NavBar>
         <List
-          renderHeader={() => `device${this.state.client_id}`}
+          renderHeader={() => `设备${this.state.client_id}`}
           style={{
             width: this.state.data_obj ? 200 : 300,
             boxShadow: "0 0 20px #ddd",
             margin: 20,
+            textAlign: "center"
           }}
+
+
         >
           {this.state.data_obj ? (
             <>
-              <Item>空气温度 {this.state.data_obj.air_temp}C</Item>
+              {/* <Item>空气温度 {this.state.data_obj.air_temp}C</Item>
               <Item>空气湿度 {this.state.data_obj.air_humi}%</Item>
-              <Item>光照 {this.state.data_obj.lumen}</Item>
+              <Item>光照强度 {this.state.data_obj.lumen}</Item>
               <Item>土壤温度 {this.state.data_obj.soil_temp}C</Item>
-              <Item>土壤湿度 {this.state.data_obj.soil_humi}%</Item>
+              <Item>土壤湿度 {this.state.data_obj.soil_humi}%</Item> */}
               <Item
                 extra={
                   <Switch
@@ -153,9 +162,112 @@ export default class Page1 extends React.Component {
               </Item>
             </>
           ) : (
-            <Item>没有数据,可能设备已掉线</Item>
-          )}
+              <Item>没有数据,可能设备已掉线</Item>
+            )}
         </List>
+
+        <div
+        style={{
+          width:160,
+          height:80,
+          borderRadius:"10px",
+          //border:"red solid 4px",
+          
+
+        }}
+        >
+          <div style={{
+           
+             background:"#fff",
+             borderRadius:"10",
+             textAlign:"center",
+             fontSize: "20px",
+             verticalAlign:"top",
+             height:30,
+             padding:"5px",
+             position:"relative",
+             paddingLeft:"20px"
+          
+          }}  >
+            <img 
+              style={{
+                  
+                  position:"absolute",
+                  left:"15px",  
+                  top:"-2px"              
+                
+                }}
+            
+            src={require("../images/guangzhao.png").default} alt=""/>
+            
+              光照强度
+            
+            
+          </div>
+          <div  
+                style={{
+                 border:"3px #fff solid",
+                 textAlign:"center",
+                 color: "#605c5c",
+                 fontSize: "20px"
+                }}
+               
+            >
+               {this.state.data_obj.lumen} <span style={{
+
+                 display:"inline-block",
+                 width:10,
+                 textAlign:"center"
+               }}>
+
+                 </span> Lux
+            </div>
+        </div>
+          
+
+
+        <div  
+            style={{
+              color: "#605c5c",
+            }}
+            className="air_temp"
+        >
+          空气温度 {this.state.data_obj.air_temp}C
+        </div>
+
+        <div  
+            style={{
+              //width: "100%",
+              //height: "100%",
+              //backgroundColor: "##ffffff52", //  改了backg没得反应
+              //textAlign: "center"
+              color: "#605c5c",
+            }}
+            className="air_humi"
+        >
+          空气湿度 {this.state.data_obj.air_humi}%
+
+        </div>
+
+        <div  
+            style={{
+              color: "rgb(242 235 235)",
+            }}
+            className="soil_temp"
+        >
+          土壤温度 {this.state.data_obj.soil_temp}C
+        </div>
+
+        <div  
+            style={{
+              color: "rgb(242 235 235)",
+            }}
+            className="soil_humi"
+        >
+           土壤湿度 {this.state.data_obj.soil_humi}%
+        </div>
+
+       
       </div>
     );
   }
