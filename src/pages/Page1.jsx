@@ -168,10 +168,10 @@ export default class Page1 extends React.Component {
 
         <div
         style={{
-          width:160,
-          height:80,
-          borderRadius:"10px",
-          //border:"red solid 4px",
+          width:165,
+          height:82,
+          borderRadius:"5px",
+          //border:"white solid 4px",
           
 
         }}
@@ -186,7 +186,9 @@ export default class Page1 extends React.Component {
              height:30,
              padding:"5px",
              position:"relative",
-             paddingLeft:"20px"
+             paddingLeft:"20px",
+             color: "#605c5c",
+             borderRadius:"5px",
           
           }}  >
             <img 
@@ -194,7 +196,8 @@ export default class Page1 extends React.Component {
                   
                   position:"absolute",
                   left:"15px",  
-                  top:"-2px"              
+                  top:"-2px",
+                           
                 
                 }}
             
@@ -209,7 +212,9 @@ export default class Page1 extends React.Component {
                  border:"3px #fff solid",
                  textAlign:"center",
                  color: "#605c5c",
-                 fontSize: "20px"
+                 fontSize: "20px",
+                 borderRadius:"5px",
+                   
                 }}
                
             >
