@@ -74,6 +74,7 @@ export default class Page2 extends React.Component {
           height: "100%",
           background: "#ffffff75",
         }}
+
       >
         <div>
           <List renderHeader={"历史数据"}>

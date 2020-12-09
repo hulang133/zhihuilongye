@@ -1,8 +1,63 @@
 import React from "react";
 import * as api from "../api/index.js";
 import { NavBar, List, Popover, Icon, Switch, Slider } from "antd-mobile";
+import { logDOM } from "@testing-library/react";
 
 const Item = List.Item;
+
+
+const Logo = function ({ click }) {
+  return <img src={require("../images/jiahao.png").default}
+    style={{
+
+      width: "30px",
+      position: "absolute",
+      left: "1%",
+      top: "1%",
+    }}
+    onClick={click}
+    alt="" />
+}
+
+const Water_on = function ({ click }) {
+  return <img src={require("../images/jiaoshui.png").default}
+    style={{
+
+      width: "120px",
+      position: "absolute",
+      left: "220px",
+      top: "320px",
+    }}
+    onClick={click}
+    alt="" />
+}
+
+
+const Water_off = function ({ click }) {
+
+  <div style={{
+
+    background: "rgb(122 191 219)",
+    textAlign: "center",
+    fontSize: "20px",
+    verticalAlign: "top",
+    //height: "20px",
+    width: "100px",
+    padding: "3px",  //内边距
+    position: "absolute",
+    top: "440px",
+    left: "240px",
+    //paddingLeft: "20px",
+    color: "#605c5c",
+    borderRadius: "5px",
+    border: "3px white solid",
+  }}
+    onClick={click}
+  >
+    不浇水
+  </div>
+}
+
 export default class Page1 extends React.Component {
   state = {
     popoverVisible: false,
@@ -12,6 +67,7 @@ export default class Page1 extends React.Component {
     data_obj: {},
     min_humi: 0,
     max_humi: 100,
+    show_switcher: false,
   };
 
   async componentDidMount() {
@@ -65,6 +121,9 @@ export default class Page1 extends React.Component {
           //backgroundColor: "##ffffff52", //  改了backg没得反应
         }}
         className="page1"
+      // onClick={()=>{
+      //   this.setState({show_switcher:false})
+      // }}
       >
         <NavBar
           style={{
@@ -100,12 +159,28 @@ export default class Page1 extends React.Component {
           设备{this.state.client_id}
         </NavBar>
         <List
-          renderHeader={() => `设备${this.state.client_id}`}
+          renderHeader={() =>
+            <span
+              style={{
+                color: "rgb(231 44 44)",
+                fontSize: "20px",
+              }}
+
+            >`设备${this.state.client_id}`</span>}
+
           style={{
+            position: "absolute",
+            top: "500px",
+            left: "30px",
+            overflow: "hidden",
+            borderRadius: "10px",
             width: this.state.data_obj ? 200 : 300,
             boxShadow: "0 0 20px #ddd",
+            border: "3px  red solid",
             margin: 20,
-            textAlign: "center"
+            textAlign: "center",
+            opacity: this.state.show_switcher ? 1 : 0,
+
           }}
 
 
@@ -166,113 +241,141 @@ export default class Page1 extends React.Component {
             )}
         </List>
 
-        <div
-        style={{
-          width:165,
-          height:82,
-          borderRadius:"5px",
-          //border:"white solid 4px",
-          
 
-        }}
+        <div>
+          <Logo click={() => {
+            this.setState({
+              show_switcher: !this.state.show_switcher
+            })
+          }} />
+        </div>
+
+        <div
+          style={{
+            width: 165,
+            height: 82,
+            borderRadius: "5px",
+            //border:"white solid 4px",
+
+            position: "absolute",
+            left: "15px",
+            top: "200px",
+          }}
         >
           <div style={{
-           
-             background:"#fff",
-             borderRadius:"10",
-             textAlign:"center",
-             fontSize: "20px",
-             verticalAlign:"top",
-             height:30,
-             padding:"5px",
-             position:"relative",
-             paddingLeft:"20px",
-             color: "#605c5c",
-             borderRadius:"5px",
-          
+
+            background: "#fff",
+            borderRadius: "10",
+            textAlign: "center",
+            fontSize: "20px",
+            verticalAlign: "top",
+            height: 30,
+            padding: "5px",
+            position: "relative",
+            paddingLeft: "20px",
+            color: "#605c5c",
+            borderRadius: "5px",
+
           }}  >
-            <img 
+            <img
               style={{
-                  
-                  position:"absolute",
-                  left:"15px",  
-                  top:"-2px",
-                           
-                
-                }}
-            
-            src={require("../images/guangzhao.png").default} alt=""/>
-            
+
+                position: "absolute",
+                left: "15px",
+                top: "-2px",
+              }}
+              src={require("../images/guangzhao.png").default} alt="" />
               光照强度
-            
-            
           </div>
-          <div  
-                style={{
-                 border:"3px #fff solid",
-                 textAlign:"center",
-                 color: "#605c5c",
-                 fontSize: "20px",
-                 borderRadius:"5px",
-                   
-                }}
-               
-            >
-               {this.state.data_obj.lumen} <span style={{
 
-                 display:"inline-block",
-                 width:10,
-                 textAlign:"center"
-               }}>
+          <div style={{
 
-                 </span> Lux
+            background: "rgb(122 191 219)",
+            textAlign: "center",
+            fontSize: "20px",
+            verticalAlign: "top",
+            //height: "20px",
+            width: "100px",
+            padding: "3px",  //内边距
+            position: "absolute",
+            top: "250px",
+            left: "240px",
+            //paddingLeft: "20px",
+            color: "#605c5c",
+            borderRadius: "5px",
+            border: "3px white solid",
+          }}  >
+            浇水
+          </div>
+
+
+          <Water_on />
+
+          <div
+            style={{
+              border: "3px #fff solid",
+              textAlign: "center",
+              color: "#605c5c",
+              fontSize: "20px",
+              borderRadius: "5px",
+            }}
+
+          >
+            {this.state.data_obj.lumen} <span style={{
+
+              display: "inline-block",
+              width: 10,
+              textAlign: "center"
+            }}>
+
+            </span> Lux
             </div>
         </div>
-          
 
 
-        <div  
-            style={{
-              color: "#605c5c",
-            }}
-            className="air_temp"
+
+        <div
+          style={{
+            color: "#605c5c",
+          }}
+          className="air_temp"
         >
           空气温度 {this.state.data_obj.air_temp}C
         </div>
 
-        <div  
-            style={{
-              //width: "100%",
-              //height: "100%",
-              //backgroundColor: "##ffffff52", //  改了backg没得反应
-              //textAlign: "center"
-              color: "#605c5c",
-            }}
-            className="air_humi"
+        <div
+          style={{
+            //width: "100%",
+            //height: "100%",
+            //backgroundColor: "##ffffff52", //  改了backg没得反应
+            //textAlign: "center"
+            color: "#605c5c",
+          }}
+          className="air_humi"
         >
           空气湿度 {this.state.data_obj.air_humi}%
 
         </div>
 
-        <div  
-            style={{
-              color: "rgb(242 235 235)",
-            }}
-            className="soil_temp"
+        <div
+          style={{
+            color: "rgb(242 235 235)",
+          }}
+          className="soil_temp"
         >
           土壤温度 {this.state.data_obj.soil_temp}C
         </div>
 
-        <div  
-            style={{
-              color: "rgb(242 235 235)",
-            }}
-            className="soil_humi"
+        <div
+          style={{
+            color: "rgb(242 235 235)",
+          }}
+          className="soil_humi"
         >
-           土壤湿度 {this.state.data_obj.soil_humi}%
+          土壤湿度 {this.state.data_obj.soil_humi}%
         </div>
 
-       
+
       </div>
     );
   }
