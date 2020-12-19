@@ -14,28 +14,14 @@ const Logo = function ({ click }) {
       position: "absolute",
       left: "1%",
       top: "1%",
+
     }}
     onClick={click}
     alt="" />
 }
 
 const Water_on = function ({ click }) {
-  return <img src={require("../images/jiaoshui.png").default}
-    style={{
-
-      width: "120px",
-      position: "absolute",
-      left: "220px",
-      top: "320px",
-    }}
-    onClick={click}
-    alt="" />
-}
-
-
-const Water_off = function ({ click }) {
-
-  <div style={{
+  return   <div style={{
 
     background: "rgb(122 191 219)",
     textAlign: "center",
@@ -45,17 +31,16 @@ const Water_off = function ({ click }) {
     width: "100px",
     padding: "3px",  //内边距
     position: "absolute",
-    top: "440px",
-    left: "240px",
+    top: "150px",
+    left: "270px",
     //paddingLeft: "20px",
-    color: "#605c5c",
+    color: "rgb(0 0 0);",
     borderRadius: "5px",
     border: "3px white solid",
-  }}
-    onClick={click}
-  >
-    不浇水
-  </div>
+    boxShadow: "0 0 20px #ddd",
+  }}  >
+    浇水
+ </div>
 }
 
 export default class Page1 extends React.Component {
@@ -68,6 +53,7 @@ export default class Page1 extends React.Component {
     min_humi: 0,
     max_humi: 100,
     show_switcher: false,
+    show_water: true,
   };
 
   async componentDidMount() {
@@ -162,28 +148,26 @@ export default class Page1 extends React.Component {
           renderHeader={() =>
             <span
               style={{
-                color: "rgb(231 44 44)",
-                fontSize: "20px",
+                color: "rgb(0 0 0)",
+                fontSize: "24px",
               }}
 
-            >`设备${this.state.client_id}`</span>}
+            >设备{this.state.client_id}</span>}
 
           style={{
+            background: "rgb(182 206 216 / 88%)",
             position: "absolute",
-            top: "500px",
-            left: "30px",
+            top: "465px", //535
+            left: "1px", //34
             overflow: "hidden",
             borderRadius: "10px",
             width: this.state.data_obj ? 200 : 300,
             boxShadow: "0 0 20px #ddd",
-            border: "3px  red solid",
+            border: "3px  white solid",
             margin: 20,
             textAlign: "center",
             opacity: this.state.show_switcher ? 1 : 0,
-
           }}
-
-
         >
           {this.state.data_obj ? (
             <>
@@ -224,7 +208,7 @@ export default class Page1 extends React.Component {
                   onAfterChange={this.switchChangeAfter}
                 />
               </Item>
-              <Item
+              {/* <Item
                 extra={this.state.max_humi}
                 style={{ display: this.state.auto_modify ? "" : "none" }}
               >
@@ -234,7 +218,7 @@ export default class Page1 extends React.Component {
                   onChange={this.maxHumiChange}
                   onAfterChange={this.switchChangeAfter}
                 />
-              </Item>
+              </Item> */}
             </>
           ) : (
               <Item>没有数据,可能设备已掉线</Item>
@@ -247,8 +231,34 @@ export default class Page1 extends React.Component {
             this.setState({
               show_switcher: !this.state.show_switcher
             })
+          }} /> 
+        </div>
+
+        <div>
+          <Water_on click={() => {
+            this.setState({
+              show_water: !this.state.show_water
+            })
           }} />
         </div>
+
+        <image  src={require("../images/jiahao.png").default}
+        style={{
+            background: "rgb(182 206 216 / 88%)",
+            position: "absolute",
+            top: "465px", //535
+            left: "1px", //34
+            overflow: "hidden",
+            borderRadius: "10px",
+            width: this.state.data_obj ? 200 : 300,
+            boxShadow: "0 0 20px #ddd",
+            border: "3px  white solid",
+            margin: 20,
+            textAlign: "center",
+            opacity: this.state.show_water ? 1 : 0,
+          }}
+          >
+        </image>
 
         <div
           style={{
@@ -275,6 +285,7 @@ export default class Page1 extends React.Component {
             paddingLeft: "20px",
             color: "#605c5c",
             borderRadius: "5px",
+            boxShadow: "0 0 20px #ddd",
 
           }}  >
             <img
@@ -299,17 +310,37 @@ export default class Page1 extends React.Component {
             padding: "3px",  //内边距
             position: "absolute",
             top: "250px",
-            left: "240px",
+            left: "270px",
             //paddingLeft: "20px",
-            color: "#605c5c",
+            color: "rgb(0 0 0);",
             borderRadius: "5px",
             border: "3px white solid",
+            boxShadow: "0 0 20px #ddd",
           }}  >
             浇水
           </div>
 
+          <div style={{
 
-          <Water_on />
+            background: "rgb(122 191 219)",
+            textAlign: "center",
+            fontSize: "20px",
+            verticalAlign: "top",
+            //height: "20px",
+            width: "100px",
+            padding: "3px",  //内边距
+            position: "absolute",
+            top: "430px",
+            left: "270px",
+            //paddingLeft: "20px",
+            color: "rgb(0 0 0)",
+            borderRadius: "5px",
+            border: "3px white solid",
+            boxShadow: "0 0 20px #ddd",
+          }}  >
+            不浇水
+</div>
+
 
           <div
             style={{
