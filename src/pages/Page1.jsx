@@ -21,8 +21,7 @@ const Logo = function ({ click }) {
 }
 
 const Water_on = function ({ click }) {
-  return   <div style={{
-
+  return <div style={{
     background: "rgb(122 191 219)",
     textAlign: "center",
     fontSize: "20px",
@@ -31,17 +30,45 @@ const Water_on = function ({ click }) {
     width: "100px",
     padding: "3px",  //内边距
     position: "absolute",
-    top: "150px",
-    left: "270px",
+    top: "450px",
+    left: "285px",
     //paddingLeft: "20px",
     color: "rgb(0 0 0);",
     borderRadius: "5px",
     border: "3px white solid",
     boxShadow: "0 0 20px #ddd",
-  }}  >
+  }}
+    onClick={click}
+    alt="" >
     浇水
- </div>
+  </div>
 }
+
+const Water_off = function ({ click ,text,top="650px",left="285px"}) {
+  return <div style={{
+    background: "rgb(122 191 219)",
+    textAlign: "center",
+    fontSize: "20px",
+    verticalAlign: "top",
+    //height: "20px",
+    width: "100px",
+    padding: "3px",  //内边距
+    position: "absolute",
+    top,
+    left,
+    //paddingLeft: "20px",
+    color: "rgb(0 0 0);",
+    borderRadius: "5px",
+    border: "3px white solid",
+    boxShadow: "0 0 20px #ddd",
+  }}
+    onClick={click}
+    alt="" >
+    {text}
+    
+  </div>
+}
+
 
 export default class Page1 extends React.Component {
   state = {
@@ -67,7 +94,8 @@ export default class Page1 extends React.Component {
     // }
     this.setState({ data_obj });
     if (needUpdateClientKey && data_obj) {
-      this.setState({ client_key: data_obj.client_key });
+      this.setState({ client_key: data_obj.client_key ,show_water:data_obj.client_key==1?true:false});
+    
     }
   };
   minHumiChange = (value) => {
@@ -151,7 +179,6 @@ export default class Page1 extends React.Component {
                 color: "rgb(0 0 0)",
                 fontSize: "24px",
               }}
-
             >设备{this.state.client_id}</span>}
 
           style={{
@@ -225,40 +252,66 @@ export default class Page1 extends React.Component {
             )}
         </List>
 
-
         <div>
           <Logo click={() => {
             this.setState({
               show_switcher: !this.state.show_switcher
             })
-          }} /> 
+          }} />
         </div>
+
+        <img src={require("../images/bujiaoshui.png").default}
+          style={{
+            position: "absolute",
+            top: "530px", //535
+            left: "262px", //34
+            width: "115px",
+            textAlign: "center",
+            opacity: this.state.show_water ? 1 : 0,
+          }}
+        />
+
+        <img src={require("../images/jiaoshui.png").default}
+          style={{
+            position: "absolute",
+            top: "530px", //535
+            left: "250px", //34
+            width: "135px",
+            textAlign: "center",
+            opacity: this.state.show_water ? 0 : 1,
+          }}
+        />
 
         <div>
           <Water_on click={() => {
             this.setState({
               show_water: !this.state.show_water
             })
+            api.switches({
+              client_id: this.state.client_id,
+              status: 1,
+              min_humi: 0,
+              max_humi: 100,
+            });
+
           }} />
         </div>
 
-        <image  src={require("../images/jiahao.png").default}
-        style={{
-            background: "rgb(182 206 216 / 88%)",
-            position: "absolute",
-            top: "465px", //535
-            left: "1px", //34
-            overflow: "hidden",
-            borderRadius: "10px",
-            width: this.state.data_obj ? 200 : 300,
-            boxShadow: "0 0 20px #ddd",
-            border: "3px  white solid",
-            margin: 20,
-            textAlign: "center",
-            opacity: this.state.show_water ? 1 : 0,
-          }}
-          >
-        </image>
+        <div>
+          <Water_off click={() => {
+            this.setState({
+              show_water: !this.state.show_water
+            })
+            api.switches({
+              client_id: this.state.client_id,
+              status: 0,
+              min_humi: 0,
+              max_humi: 100,
+            });
+  
+          }} 
+          text="不浇水"/>
+        </div>
 
         <div
           style={{
@@ -266,14 +319,13 @@ export default class Page1 extends React.Component {
             height: 82,
             borderRadius: "5px",
             //border:"white solid 4px",
-
             position: "absolute",
             left: "15px",
             top: "200px",
           }}
         >
-          <div style={{
 
+          <div style={{
             background: "#fff",
             borderRadius: "10",
             textAlign: "center",
@@ -286,11 +338,9 @@ export default class Page1 extends React.Component {
             color: "#605c5c",
             borderRadius: "5px",
             boxShadow: "0 0 20px #ddd",
-
           }}  >
             <img
               style={{
-
                 position: "absolute",
                 left: "15px",
                 top: "-2px",
@@ -300,70 +350,21 @@ export default class Page1 extends React.Component {
           </div>
 
           <div style={{
-
-            background: "rgb(122 191 219)",
+            border: "3px #fff solid",
             textAlign: "center",
+            color: "#605c5c",
             fontSize: "20px",
-            verticalAlign: "top",
-            //height: "20px",
-            width: "100px",
-            padding: "3px",  //内边距
-            position: "absolute",
-            top: "250px",
-            left: "270px",
-            //paddingLeft: "20px",
-            color: "rgb(0 0 0);",
             borderRadius: "5px",
-            border: "3px white solid",
-            boxShadow: "0 0 20px #ddd",
-          }}  >
-            浇水
-          </div>
-
-          <div style={{
-
-            background: "rgb(122 191 219)",
-            textAlign: "center",
-            fontSize: "20px",
-            verticalAlign: "top",
-            //height: "20px",
-            width: "100px",
-            padding: "3px",  //内边距
-            position: "absolute",
-            top: "430px",
-            left: "270px",
-            //paddingLeft: "20px",
-            color: "rgb(0 0 0)",
-            borderRadius: "5px",
-            border: "3px white solid",
-            boxShadow: "0 0 20px #ddd",
-          }}  >
-            不浇水
-</div>
-
-
-          <div
-            style={{
-              border: "3px #fff solid",
-              textAlign: "center",
-              color: "#605c5c",
-              fontSize: "20px",
-              borderRadius: "5px",
-            }}
-
+          }}
           >
             {this.state.data_obj.lumen} <span style={{
-
               display: "inline-block",
               width: 10,
               textAlign: "center"
             }}>
-
             </span> Lux
             </div>
         </div>
-
-
 
         <div
           style={{
