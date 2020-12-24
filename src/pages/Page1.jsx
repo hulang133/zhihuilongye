@@ -33,7 +33,7 @@ const Water_on = function ({ click }) {
     top: "450px",
     left: "285px",
     //paddingLeft: "20px",
-    color: "rgb(0 0 0);",
+    color: "rgb(0 0 0)",
     borderRadius: "5px",
     border: "3px white solid",
     boxShadow: "0 0 20px #ddd",
@@ -44,7 +44,7 @@ const Water_on = function ({ click }) {
   </div>
 }
 
-const Water_off = function ({ click ,text,top="650px",left="285px"}) {
+const Water_off = function ({ click, text, top = "630px", left = "285px" }) {
   return <div style={{
     background: "rgb(122 191 219)",
     textAlign: "center",
@@ -57,7 +57,7 @@ const Water_off = function ({ click ,text,top="650px",left="285px"}) {
     top,
     left,
     //paddingLeft: "20px",
-    color: "rgb(0 0 0);",
+    color: "rgb(0 0 0)",
     borderRadius: "5px",
     border: "3px white solid",
     boxShadow: "0 0 20px #ddd",
@@ -65,7 +65,7 @@ const Water_off = function ({ click ,text,top="650px",left="285px"}) {
     onClick={click}
     alt="" >
     {text}
-    
+
   </div>
 }
 
@@ -94,8 +94,8 @@ export default class Page1 extends React.Component {
     // }
     this.setState({ data_obj });
     if (needUpdateClientKey && data_obj) {
-      this.setState({ client_key: data_obj.client_key ,show_water:data_obj.client_key==1?true:false});
-    
+      this.setState({ client_key: data_obj.client_key, show_water: data_obj.client_key == 1 ? true : false });
+
     }
   };
   minHumiChange = (value) => {
@@ -172,70 +172,82 @@ export default class Page1 extends React.Component {
         >
           设备{this.state.client_id}
         </NavBar>
-        <List
-          renderHeader={() =>
-            <span
-              style={{
-                color: "rgb(0 0 0)",
-                fontSize: "24px",
-              }}
-            >设备{this.state.client_id}</span>}
 
-          style={{
-            background: "rgb(182 206 216 / 88%)",
-            position: "absolute",
-            top: "465px", //535
-            left: "1px", //34
-            overflow: "hidden",
-            borderRadius: "10px",
-            width: this.state.data_obj ? 200 : 300,
-            boxShadow: "0 0 20px #ddd",
-            border: "3px  white solid",
-            margin: 20,
-            textAlign: "center",
-            opacity: this.state.show_switcher ? 1 : 0,
-          }}
+        <div style={{
+          height: "100vh",
+          width: "100vw",
+          //background:"#00f000",
+          position: "absolute",
+          opacity: this.state.show_switcher ? 1 : 0,
+
+        }}
+          onClick={() => { this.setState({ show_switcher: 0 }) }}
         >
-          {this.state.data_obj ? (
-            <>
-              {/* <Item>空气温度 {this.state.data_obj.air_temp}C</Item>
+
+          <List
+            renderHeader={() =>
+              <span
+                style={{
+                  color: "#000000",
+                  fontSize: "24px",
+                }}
+              >设备{this.state.client_id}</span>}
+
+            style={{
+              background: "rgb(182 206 216 / 88%)",
+              position: "absolute",
+              top: "465px", //535
+              left: "1px", //34
+              overflow: "hidden",
+              borderRadius: "10px",
+              width: this.state.data_obj ? 200 : 300,
+              boxShadow: "0 0 20px #ddd",
+              border: "3px  white solid",
+              margin: 20,
+              textAlign: "center",
+
+            }}
+          >
+            {this.state.data_obj ? (
+              <>
+                {/* <Item>空气温度 {this.state.data_obj.air_temp}C</Item>
               <Item>空气湿度 {this.state.data_obj.air_humi}%</Item>
               <Item>光照强度 {this.state.data_obj.lumen}</Item>
               <Item>土壤温度 {this.state.data_obj.soil_temp}C</Item>
               <Item>土壤湿度 {this.state.data_obj.soil_humi}%</Item> */}
-              <Item
-                extra={
-                  <Switch
-                    checked={this.state.auto_modify}
-                    onChange={this.autoModifyChange}
+                <Item
+                  extra={
+                    <Switch
+                      checked={this.state.auto_modify}
+                      onChange={this.autoModifyChange}
+                    />
+                  }
+                >
+                  自动调节
+              </Item>
+                <Item
+                  style={{ display: this.state.auto_modify ? "none" : "" }}
+                  extra={
+                    <Switch
+                      checked={this.state.client_key == 1}
+                      onChange={this.switchChange}
+                    />
+                  }
+                >
+                  浇水
+              </Item>
+                <Item
+                  extra={this.state.min_humi}
+                  style={{ display: this.state.auto_modify ? "" : "none" }}
+                >
+                  <p>最低值</p>
+                  <Slider
+                    value={this.state.min_humi}
+                    onChange={this.minHumiChange}
+                    onAfterChange={this.switchChangeAfter}
                   />
-                }
-              >
-                自动调节
-              </Item>
-              <Item
-                style={{ display: this.state.auto_modify ? "none" : "" }}
-                extra={
-                  <Switch
-                    checked={this.state.client_key == 1}
-                    onChange={this.switchChange}
-                  />
-                }
-              >
-                浇水
-              </Item>
-              <Item
-                extra={this.state.min_humi}
-                style={{ display: this.state.auto_modify ? "" : "none" }}
-              >
-                <p>最低值</p>
-                <Slider
-                  value={this.state.min_humi}
-                  onChange={this.minHumiChange}
-                  onAfterChange={this.switchChangeAfter}
-                />
-              </Item>
-              {/* <Item
+                </Item>
+                {/* <Item
                 extra={this.state.max_humi}
                 style={{ display: this.state.auto_modify ? "" : "none" }}
               >
@@ -246,11 +258,13 @@ export default class Page1 extends React.Component {
                   onAfterChange={this.switchChangeAfter}
                 />
               </Item> */}
-            </>
-          ) : (
-              <Item>没有数据,可能设备已掉线</Item>
-            )}
-        </List>
+              </>
+            ) : (
+                <Item>没有数据,可能设备已掉线</Item>
+              )}
+          </List>
+
+        </div>
 
         <div>
           <Logo click={() => {
@@ -308,9 +322,9 @@ export default class Page1 extends React.Component {
               min_humi: 0,
               max_humi: 100,
             });
-  
-          }} 
-          text="不浇水"/>
+
+          }}
+            text="不浇水" />
         </div>
 
         <div
@@ -366,16 +380,70 @@ export default class Page1 extends React.Component {
             </div>
         </div>
 
-        <div
+        {/* <div
           style={{
             color: "#605c5c",
           }}
           className="air_temp"
         >
           空气温度 {this.state.data_obj.air_temp}C
+        </div> */}
+        <div
+          style={{
+            width: 150,
+            height: 82,
+            borderRadius: "5px",
+            //border:"white solid 4px",
+            //  position: "absolute",
+            //left: "15px",
+            //top: "200px",
+          }}
+          className="air_temp"
+        >
+
+          <div style={{
+            background: "#fff",
+            borderRadius: "10",
+            textAlign: "center",
+            fontSize: "20px",
+            verticalAlign: "top",
+            height: 30,
+            padding: "5px",
+            position: "relative",
+            paddingLeft: "20px",
+            color: "#605c5c",
+            borderRadius: "5px",
+            boxShadow: "0 0 20px #ddd",
+          }}  >
+            <img
+              style={{
+                position: "absolute",
+                left: "10px",
+                top: "-2px",
+              }}
+              src={require("../images/kongqiwendu.png").default} alt="" />
+            空气温度
+          </div>
+
+          <div style={{
+            border: "3px #fff solid",
+            textAlign: "center",
+            color: "#605c5c",
+            fontSize: "20px",
+            borderRadius: "5px",
+          }}
+          >
+            {this.state.data_obj.air_temp} <span style={{
+              display: "inline-block",
+              width: 10,
+              textAlign: "center"
+            }}>
+            </span> C
+            </div>
         </div>
 
-        <div
+
+        {/* <div
           style={{
             //width: "100%",
             //height: "100%",
@@ -387,25 +455,199 @@ export default class Page1 extends React.Component {
         >
           空气湿度 {this.state.data_obj.air_humi}%
 
-        </div>
+        </div> */}
+
+
 
         <div
+          style={{
+            width: 150,
+            height: 82,
+            borderRadius: "5px",
+            //border:"white solid 4px",
+            //  position: "absolute",
+            //left: "15px",
+            //top: "200px",
+          }}
+          className="air_humi"
+        >
+
+          <div style={{
+            background: "#fff",
+            borderRadius: "10",
+            textAlign: "center",
+            fontSize: "20px",
+            verticalAlign: "top",
+            height: 30,
+            padding: "5px",
+            position: "relative",
+            paddingLeft: "20px",
+            color: "#605c5c",
+            borderRadius: "5px",
+            boxShadow: "0 0 20px #ddd",
+          }}  >
+            <img
+              style={{
+                position: "absolute",
+                left: "10px",
+                top: "-2px",
+              }}
+              src={require("../images/kongqishidu.png").default} alt="" />
+            空气湿度
+          </div>
+
+          <div style={{
+            border: "3px #fff solid",
+            textAlign: "center",
+            color: "#605c5c",
+            fontSize: "20px",
+            borderRadius: "5px",
+          }}
+          >
+            {this.state.data_obj.air_humi} <span style={{
+              display: "inline-block",
+              width: 10,
+              textAlign: "center"
+            }}>
+            </span> %
+            </div>
+        </div>
+
+
+
+        {/* <div
           style={{
             color: "rgb(242 235 235)",
           }}
           className="soil_temp"
         >
           土壤温度 {this.state.data_obj.soil_temp}C
-        </div>
+        </div> */}
 
         <div
+          style={{
+            width: 150,
+            height: 82,
+            borderRadius: "5px",
+            //border:"white solid 4px",
+            //  position: "absolute",
+            //left: "15px",
+            //top: "200px",
+          }}
+          className="soil_temp"
+        >
+
+          <div style={{
+            background: "#fff",
+            borderRadius: "10",
+            textAlign: "center",
+            fontSize: "20px",
+            verticalAlign: "top",
+            height: 30,
+            padding: "5px",
+            position: "relative",
+            paddingLeft: "20px",
+            color: "#605c5c",
+            borderRadius: "5px",
+            boxShadow: "0 0 20px #ddd",
+          }}  >
+            <img
+              style={{
+                position: "absolute",
+                left: "10px",
+                top: "-2px",
+              }}
+              src={require("../images/turangwendu.png").default} alt="" />
+            土壤温度
+          </div>
+
+          <div style={{
+            border: "3px #fff solid",
+            textAlign: "center",
+            color: "#605c5c",
+            fontSize: "20px",
+            borderRadius: "5px",
+            color: "rgb(242 235 235)",
+          }}
+          >
+            {this.state.data_obj.soil_temp} <span style={{
+              display: "inline-block",
+              width: 10,
+              textAlign: "center",
+
+            }}>
+            </span> C
+            </div>
+        </div>
+
+
+
+
+        {/* <div
           style={{
             color: "rgb(242 235 235)",
           }}
           className="soil_humi"
         >
           土壤湿度 {this.state.data_obj.soil_humi}%
+        </div> */}
+
+        <div
+          style={{
+            width: 150,
+            height: 82,
+            borderRadius: "5px",
+            //border:"white solid 4px",
+            //  position: "absolute",
+            //left: "15px",
+            //top: "200px",
+          }}
+          className="soil_humi"
+        >
+
+          <div style={{
+            background: "#fff",
+            borderRadius: "10",
+            textAlign: "center",
+            fontSize: "20px",
+            verticalAlign: "top",
+            height: 30,
+            padding: "5px",
+            position: "relative",
+            paddingLeft: "20px",
+            color: "#605c5c",
+            borderRadius: "5px",
+            boxShadow: "0 0 20px #ddd",
+          }}  >
+            <img
+              style={{
+                position: "absolute",
+                left: "10px",
+                top: "-2px",
+              }}
+              src={require("../images/turangshidu.png").default} alt="" />
+            土壤湿度
+          </div>
+
+          <div style={{
+            border: "3px #fff solid",
+            textAlign: "center",
+            color: "#605c5c",
+            fontSize: "20px",
+            borderRadius: "5px",
+            color: "rgb(242 235 235)",
+          }}
+          >
+            {this.state.data_obj.soil_humi} <span style={{
+              display: "inline-block",
+              width: 10,
+              textAlign: "center",
+
+            }}>
+            </span> %
+            </div>
         </div>
+
 
 
       </div>
